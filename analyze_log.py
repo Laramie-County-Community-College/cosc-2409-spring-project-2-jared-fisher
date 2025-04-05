@@ -28,8 +28,7 @@ def analyze_log_file(filename="access.log"):
                 # if a status code is greater than 400 (error) increment the total_errors count
                 if int(status_code) > 400:
                     total_errors += 1
-                # insert all of the IP Addressess into the unique_ips list, then detect if an ip is not in the list go ahead and add it
-                unique_ips.insert
+                # detect if an ip is not in the list, if it's not then add it
                 if ip not in unique_ips:
                     unique_ips.append(ip)
                 # takes the access_counts dictonary and adds the urls as keys and the number of times the URL is 'hit' to increment the value count by 1

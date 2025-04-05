@@ -14,7 +14,33 @@ def analyze_log_file(filename="access.log"):
 
     try:
         # open the access.log file and read the lines into a list (ideally named log_lines if you want to use the code from the instruction page)
-        pass  #remove this line when you start coding
+        test_file = open(filename)
+
+        total_errors = 0
+        unique_ips = []
+        url_access_counts = {}
+
+        for line in test_file:
+            # extracts sections of the access log file lines
+            match = re.search(r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) - (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) - \"GET (.+) HTTP/1.1\" (\d+)", line)
+            if match:
+                _, ip, url, status_code = match.groups()
+                # if a status code is greater than 400 (error) increment the total_errors count
+                if int(status_code) > 400:
+                    total_errors += 1
+                # insert all of the IP Addressess into the unique_ips list, then detect if an ip is not in the list go ahead and add it
+                unique_ips.insert
+                if ip not in unique_ips:
+                    unique_ips.append(ip)
+                # takes the access_counts dictonary and adds the urls as keys and the number of times the URL is 'hit' to increment the value count by 1
+                if url in url_access_counts:
+                    url_access_counts[url] += 1
+                else:
+                    url_access_counts[url] = 1
+
+        print(f'Total Errors (4xx and 5xx): {total_errors}\nUnique IP Addressess: {len(unique_ips)}\nURL Access Counts:') 
+        for url, count in url_access_counts.items():
+            print(f"\t{url}: {count}")
     except FileNotFoundError:
         print(f"Error: Log file '{filename}' not found.")
         return

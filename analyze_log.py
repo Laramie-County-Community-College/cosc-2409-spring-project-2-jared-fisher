@@ -14,13 +14,14 @@ def analyze_log_file(filename="access.log"):
 
     try:
         # open the access.log file and read the lines into a list (ideally named log_lines if you want to use the code from the instruction page)
-        test_file = open(filename)
+        with open(filename, "r") as f:
+            log_lines = f.readlines()
 
         total_errors = 0
         unique_ips = []
         url_access_counts = {}
 
-        for line in test_file:
+        for line in log_lines:
             # extracts sections of the access log file lines
             match = re.search(r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) - (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) - \"GET (.+) HTTP/1.1\" (\d+)", line)
             if match:
